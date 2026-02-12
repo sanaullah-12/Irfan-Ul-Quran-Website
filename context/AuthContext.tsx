@@ -44,12 +44,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
     if (token) {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/api/auth/profile",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+        const response = await axios.get("/api/auth/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setUser(response.data.user);
       } catch (error) {
         console.error("Auth check failed:", error);
@@ -62,13 +59,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/login",
-        {
-          email,
-          password,
-        },
-      );
+      const response = await axios.post("/api/auth/login", {
+        email,
+        password,
+      });
 
       const { token, user } = response.data;
       Cookies.set("token", token, { expires: 7 });
@@ -97,15 +91,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     role?: string,
   ) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/signup",
-        {
-          name,
-          email,
-          password,
-          role: role || "student",
-        },
-      );
+      const response = await axios.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+        role: role || "student",
+      });
 
       const { token, user } = response.data;
       Cookies.set("token", token, { expires: 7 });

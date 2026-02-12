@@ -66,7 +66,11 @@ export default function ClassRoom() {
   };
 
   const initializeSocket = () => {
-    const newSocket = io("http://localhost:3001");
+    // NOTE: WebSocket signaling requires a separate server on Vercel.
+    // Set NEXT_PUBLIC_SOCKET_URL in .env.local to point to your signaling server.
+    const socketUrl =
+      process.env.NEXT_PUBLIC_SOCKET_URL || "http://localhost:3001";
+    const newSocket = io(socketUrl);
     setSocket(newSocket);
 
     newSocket.emit("join-room", {
