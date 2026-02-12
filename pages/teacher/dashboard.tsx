@@ -108,8 +108,6 @@ export default function TeacherDashboard() {
   const [classes, setClasses] = useState<ClassItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-
-
   /* Reschedule modal */
   const [showRescheduleModal, setShowRescheduleModal] = useState(false);
   const [rescheduleTarget, setRescheduleTarget] = useState<ClassItem | null>(
@@ -157,17 +155,20 @@ export default function TeacherDashboard() {
         api.get("/teacher/classes"),
       ]);
       const [overviewRes, studentsRes, classesRes] = results;
-      if (overviewRes.status === "fulfilled") { setStats(overviewRes.value.data.stats); setTeacherInfo(overviewRes.value.data.teacher); }
-      if (studentsRes.status === "fulfilled") setStudents(studentsRes.value.data.students || []);
-      if (classesRes.status === "fulfilled") setClasses(classesRes.value.data.classes || []);
+      if (overviewRes.status === "fulfilled") {
+        setStats(overviewRes.value.data.stats);
+        setTeacherInfo(overviewRes.value.data.teacher);
+      }
+      if (studentsRes.status === "fulfilled")
+        setStudents(studentsRes.value.data.students || []);
+      if (classesRes.status === "fulfilled")
+        setClasses(classesRes.value.data.classes || []);
     } catch (err) {
       console.error("Fetch error:", err);
     } finally {
       setLoading(false);
     }
   };
-
-
 
   /* ── Cancel Class ───────────────────────────────────────────── */
   const handleCancel = async () => {
@@ -181,7 +182,8 @@ export default function TeacherDashboard() {
       setCancelReason("");
       fetchData();
     } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (err as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Failed to cancel");
     }
   };
@@ -199,7 +201,8 @@ export default function TeacherDashboard() {
       setRescheduleForm({ scheduledDate: "", duration: 60 });
       fetchData();
     } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (err as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Failed to reschedule");
     }
   };
@@ -210,7 +213,8 @@ export default function TeacherDashboard() {
       await api.patch(`/teacher/classes/${classId}/status`, { status });
       fetchData();
     } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (err as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Failed to update");
     }
   };
@@ -302,7 +306,8 @@ export default function TeacherDashboard() {
                 label: "Total Classes",
                 value: stats.totalClasses,
                 icon: FaCalendarAlt,
-                color: "text-secondary-600 bg-secondary-100 dark:bg-secondary-900/40",
+                color:
+                  "text-secondary-600 bg-secondary-100 dark:bg-secondary-900/40",
               },
               {
                 label: "Upcoming",
@@ -473,7 +478,6 @@ export default function TeacherDashboard() {
                       <FaCheckCircle /> {s.totalClassesTaken || 0} classes
                     </span>
                   </div>
-
                 </motion.div>
               ))}
             </div>

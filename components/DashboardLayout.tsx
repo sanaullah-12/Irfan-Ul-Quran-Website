@@ -93,7 +93,8 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                 {tabs.map((tab) => {
                   const isActive = activeTab === tab.id;
                   const badge =
-                    (tab.id === "resources" || tab.id === "notifications") && pendingBadge
+                    (tab.id === "resources" || tab.id === "notifications") &&
+                    pendingBadge
                       ? pendingBadge
                       : undefined;
 

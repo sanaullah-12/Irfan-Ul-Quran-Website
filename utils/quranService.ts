@@ -255,8 +255,12 @@ const fetchPaginatedQuranData = async (
 
 const fetchLegacyJuzWithTranslation = async (juzNumber: number) => {
   const [arabicResponse, translationResponse] = await Promise.all([
-    axios.get(`${QURAN_API_BASE}/juz/${juzNumber}/quran-uthmani`, { timeout: 15000 }),
-    axios.get(`${QURAN_API_BASE}/juz/${juzNumber}/en.sahih`, { timeout: 15000 }),
+    axios.get(`${QURAN_API_BASE}/juz/${juzNumber}/quran-uthmani`, {
+      timeout: 15000,
+    }),
+    axios.get(`${QURAN_API_BASE}/juz/${juzNumber}/en.sahih`, {
+      timeout: 15000,
+    }),
   ]);
 
   const arabicAyahs = arabicResponse.data.data.ayahs;

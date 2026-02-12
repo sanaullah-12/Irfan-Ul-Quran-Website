@@ -66,10 +66,16 @@ export default function Classes() {
   // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (teacherRef.current && !teacherRef.current.contains(e.target as Node)) {
+      if (
+        teacherRef.current &&
+        !teacherRef.current.contains(e.target as Node)
+      ) {
         setTeacherDropdownOpen(false);
       }
-      if (studentRef.current && !studentRef.current.contains(e.target as Node)) {
+      if (
+        studentRef.current &&
+        !studentRef.current.contains(e.target as Node)
+      ) {
         setStudentDropdownOpen(false);
       }
     };
@@ -147,9 +153,12 @@ export default function Classes() {
       await api.post("/classes/create", form);
       closeScheduleModal();
       loadClasses();
-      alert("Class scheduled successfully! Notifications sent to teacher and students.");
+      alert(
+        "Class scheduled successfully! Notifications sent to teacher and students.",
+      );
     } catch (error: unknown) {
-      const msg = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (error as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Failed to schedule class");
     } finally {
       setSubmitting(false);
@@ -162,7 +171,8 @@ export default function Classes() {
       alert("Successfully enrolled in class!");
       loadClasses();
     } catch (error: unknown) {
-      const msg = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (error as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Failed to enroll");
     }
   };
@@ -559,7 +569,12 @@ export default function Classes() {
                         <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs z-10" />
                         <input
                           type="text"
-                          placeholder={form.teacherId ? (teachers.find(t => t._id === form.teacherId)?.name || "Search teachers...") : "Search & select a teacher..."}
+                          placeholder={
+                            form.teacherId
+                              ? teachers.find((t) => t._id === form.teacherId)
+                                  ?.name || "Search teachers..."
+                              : "Search & select a teacher..."
+                          }
                           value={teacherSearch}
                           onChange={(e) => {
                             setTeacherSearch(e.target.value);
@@ -592,10 +607,16 @@ export default function Classes() {
                             <FaCheck className="text-[9px]" />
                           </div>
                           <span className="text-sm font-medium text-primary-700 dark:text-primary-400">
-                            {teachers.find(t => t._id === form.teacherId)?.name}
+                            {
+                              teachers.find((t) => t._id === form.teacherId)
+                                ?.name
+                            }
                           </span>
                           <span className="text-[11px] text-primary-500 dark:text-primary-500">
-                            {teachers.find(t => t._id === form.teacherId)?.email}
+                            {
+                              teachers.find((t) => t._id === form.teacherId)
+                                ?.email
+                            }
                           </span>
                         </div>
                       )}
@@ -660,7 +681,11 @@ export default function Classes() {
                         <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs z-10" />
                         <input
                           type="text"
-                          placeholder={form.studentIds.length > 0 ? `${form.studentIds.length} student(s) selected — search more...` : "Search & select students..."}
+                          placeholder={
+                            form.studentIds.length > 0
+                              ? `${form.studentIds.length} student(s) selected — search more...`
+                              : "Search & select students..."
+                          }
                           value={studentSearch}
                           onChange={(e) => {
                             setStudentSearch(e.target.value);
@@ -699,7 +724,9 @@ export default function Classes() {
                       {studentDropdownOpen && (
                         <div className="absolute left-0 right-0 mt-1 max-h-52 overflow-y-auto space-y-1 border border-slate-200 dark:border-dark-border rounded-xl p-2 bg-white dark:bg-dark-card shadow-xl z-20">
                           <div className="flex items-center justify-between px-2 pb-1.5 border-b border-slate-100 dark:border-dark-border mb-1">
-                            <span className="text-[11px] text-slate-400">{filteredStudents.length} student(s)</span>
+                            <span className="text-[11px] text-slate-400">
+                              {filteredStudents.length} student(s)
+                            </span>
                             <button
                               type="button"
                               onClick={() => {

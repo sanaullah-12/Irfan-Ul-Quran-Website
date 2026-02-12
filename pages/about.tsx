@@ -45,8 +45,9 @@ export default function About() {
                 Our mission is to make Quranic education accessible to everyone,
                 everywhere. We combine traditional Islamic teaching methods with
                 modern technology to provide a comprehensive learning
-                experience. Whether you're a beginner or looking to perfect your
-                recitation, we're here to guide you every step of the way.
+                experience. Whether you&apos;re a beginner or looking to perfect
+                your recitation, we&apos;re here to guide you every step of the
+                way.
               </p>
             </motion.div>
 
@@ -87,12 +88,13 @@ export default function About() {
                             Qualifications
                           </h4>
                           <p className="text-slate-600 dark:text-slate-400">
-                            • Master's in Islamic Studies from Al-Azhar
+                            • Master&apos;s in Islamic Studies from Al-Azhar
                             University
                             <br />
                             • Certified Tajweed Instructor (Ijazah in Hafs
                             recitation)
-                            <br />• Bachelor's in Arabic Language and Literature
+                            <br />• Bachelor&apos;s in Arabic Language and
+                            Literature
                           </p>
                         </div>
                       </div>

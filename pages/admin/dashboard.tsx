@@ -24,8 +24,6 @@ import {
   FaClipboardList,
   FaCalendarPlus,
   FaVideo,
-  FaPlay,
-  FaEdit,
   FaTrashAlt,
   FaRedo,
 } from "react-icons/fa";
@@ -110,7 +108,7 @@ export default function AdminDashboard() {
     search: "",
   });
   const [teachers, setTeachers] = useState<UserItem[]>([]);
-  const [students, setStudents] = useState<UserItem[]>([]);
+  const [, setStudents] = useState<UserItem[]>([]);
   const [assignTeacherId, setAssignTeacherId] = useState("");
 
   // Reschedule modal
@@ -130,8 +128,6 @@ export default function AdminDashboard() {
 
   // Class filter
   const [classFilter, setClassFilter] = useState<string>("all");
-
-  const courseTypes = ["Nazra", "Tajweed", "Hifz", "Translation", "Tafseer"];
 
   useEffect(() => {
     const t = router.query.tab as Tab | undefined;
@@ -157,6 +153,7 @@ export default function AdminDashboard() {
       }
       fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authLoading, user]);
 
   const fetchData = async () => {
@@ -209,7 +206,8 @@ export default function AdminDashboard() {
       await api.patch(`/admin/users/${userId}/block`);
       fetchData();
     } catch (e: unknown) {
-      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (e as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Error");
     }
   };
@@ -218,7 +216,8 @@ export default function AdminDashboard() {
       await api.patch(`/admin/users/${userId}/unblock`);
       fetchData();
     } catch (e: unknown) {
-      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (e as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Error");
     }
   };
@@ -227,7 +226,8 @@ export default function AdminDashboard() {
       await api.patch(`/admin/resource-requests/${id}/approve`);
       fetchData();
     } catch (e: unknown) {
-      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (e as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Error");
     }
   };
@@ -236,7 +236,8 @@ export default function AdminDashboard() {
       await api.patch(`/admin/resource-requests/${id}/reject`);
       fetchData();
     } catch (e: unknown) {
-      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (e as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Error");
     }
   };
@@ -252,7 +253,8 @@ export default function AdminDashboard() {
       setAssignTeacherId("");
       fetchData();
     } catch (e: unknown) {
-      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (e as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Error");
     }
   };
@@ -272,7 +274,8 @@ export default function AdminDashboard() {
       setCancelReason("");
       fetchData();
     } catch (e: unknown) {
-      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (e as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Error");
     }
   };
@@ -294,7 +297,8 @@ export default function AdminDashboard() {
       setRescheduleForm({ scheduledDate: "", duration: 60 });
       fetchData();
     } catch (e: unknown) {
-      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (e as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Error");
     }
   };

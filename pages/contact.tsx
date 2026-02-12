@@ -48,7 +48,8 @@ export default function Contact() {
       setSuccess(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (err: unknown) {
-      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (err as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       setError(msg || "Failed to send message");
     } finally {
       setLoading(false);

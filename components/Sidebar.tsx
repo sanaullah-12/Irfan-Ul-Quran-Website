@@ -273,9 +273,11 @@ const Sidebar: React.FC<SidebarProps> = ({
         {menuItems.map((item) => {
           const isActive = activeTab === item.id;
           const badge =
-            (item.id === "resources" && pendingBadge) ? pendingBadge
-            : (item.id === "notifications" && pendingBadge) ? pendingBadge
-            : undefined;
+            item.id === "resources" && pendingBadge
+              ? pendingBadge
+              : item.id === "notifications" && pendingBadge
+                ? pendingBadge
+                : undefined;
 
           return (
             <button

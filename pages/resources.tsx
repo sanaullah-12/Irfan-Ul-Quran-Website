@@ -35,9 +35,7 @@ export default function Resources() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [duas, setDuas] = useState<any[]>([]);
   const [selectedReciter, setSelectedReciter] = useState("ar.alafasy");
-  const [, setPlayingAudio] = useState<HTMLAudioElement | null>(
-    null,
-  );
+  const [, setPlayingAudio] = useState<HTMLAudioElement | null>(null);
   const [playingSurah, setPlayingSurah] = useState<number | null>(null);
 
   // --- Arabic letter speech ---
@@ -48,7 +46,9 @@ export default function Resources() {
   const speakArabic = async (text: string, idx: number) => {
     // Stop any previous playback
     if (letterAudioRef.current) {
-      try { letterAudioRef.current.stop(); } catch {}
+      try {
+        letterAudioRef.current.stop();
+      } catch {}
       letterAudioRef.current = null;
     }
 
@@ -73,7 +73,10 @@ export default function Resources() {
       source.playbackRate.value = 0.85; // Lower pitch → deeper male voice
       source.connect(ctx.destination);
       letterAudioRef.current = source;
-      source.onended = () => { setSpeakingIdx(null); letterAudioRef.current = null; };
+      source.onended = () => {
+        setSpeakingIdx(null);
+        letterAudioRef.current = null;
+      };
       source.start();
     } catch {
       setSpeakingIdx(null);
@@ -202,7 +205,8 @@ export default function Resources() {
       });
       setPendingRequest(true);
     } catch (error: unknown) {
-      const msg = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      const msg = (error as { response?: { data?: { message?: string } } })
+        ?.response?.data?.message;
       alert(msg || "Error submitting request");
     } finally {
       setRequestingAccess(false);
@@ -387,11 +391,15 @@ export default function Resources() {
                           Request Pending
                         </h2>
                         <p className="text-slate-500 dark:text-slate-400 mb-6 text-sm">
-                          Your access request has been submitted and is awaiting admin approval. You&apos;ll get full unlimited access once approved.
+                          Your access request has been submitted and is awaiting
+                          admin approval. You&apos;ll get full unlimited access
+                          once approved.
                         </p>
                         <div className="flex items-center justify-center gap-2 px-4 py-3 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded-xl mb-5">
                           <FaClock className="text-amber-500" />
-                          <span className="text-sm font-medium text-amber-700 dark:text-amber-400">Awaiting admin approval</span>
+                          <span className="text-sm font-medium text-amber-700 dark:text-amber-400">
+                            Awaiting admin approval
+                          </span>
                         </div>
                       </>
                     ) : (
@@ -400,12 +408,16 @@ export default function Resources() {
                           Your Free Preview Has Ended
                         </h2>
                         <p className="text-slate-500 dark:text-slate-400 mb-6 text-sm">
-                          You&apos;ve been exploring our resources for 5 minutes. To continue with unlimited access, request approval or upgrade to Premium.
+                          You&apos;ve been exploring our resources for 5
+                          minutes. To continue with unlimited access, request
+                          approval or upgrade to Premium.
                         </p>
 
                         {/* Benefits list */}
                         <div className="text-left bg-slate-50 dark:bg-dark-bg rounded-xl p-5 mb-6 border border-slate-100 dark:border-dark-border">
-                          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">What you get with full access</p>
+                          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-3">
+                            What you get with full access
+                          </p>
                           <div className="space-y-2.5">
                             {[
                               "Complete Nazra Qaida with audio pronunciation",
@@ -414,9 +426,14 @@ export default function Resources() {
                               "Hadith collections & daily Duas",
                               "Unlimited listening & reading time",
                             ].map((item, i) => (
-                              <div key={i} className="flex items-center gap-2.5">
+                              <div
+                                key={i}
+                                className="flex items-center gap-2.5"
+                              >
                                 <FaCheckCircle className="text-primary-500 text-sm flex-shrink-0" />
-                                <span className="text-sm text-slate-700 dark:text-slate-300">{item}</span>
+                                <span className="text-sm text-slate-700 dark:text-slate-300">
+                                  {item}
+                                </span>
                               </div>
                             ))}
                           </div>
@@ -430,10 +447,14 @@ export default function Resources() {
                             className="w-full py-3.5 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white rounded-xl font-bold text-base transition-all disabled:opacity-50 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                           >
                             <FaLock className="text-sm" />
-                            {requestingAccess ? "Sending Request..." : "Request Free Access"}
+                            {requestingAccess
+                              ? "Sending Request..."
+                              : "Request Free Access"}
                           </button>
                           <button
-                            onClick={() => { window.location.href = "/plans"; }}
+                            onClick={() => {
+                              window.location.href = "/plans";
+                            }}
                             className="w-full py-3.5 bg-gradient-to-r from-amber-500 to-gold hover:from-amber-600 hover:to-gold-dark text-white rounded-xl font-bold text-base transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                           >
                             <FaStar className="text-sm" />
@@ -462,26 +483,32 @@ export default function Resources() {
         <div className="py-20 px-4">
           <div className="max-w-7xl mx-auto">
             {/* Free preview timer banner */}
-            {accessChecked && !hasAccess && !pendingRequest && !showTimerPopup && (timerMinutes > 0 || timerSeconds > 0) && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-6 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/15 dark:to-secondary-900/15 border border-primary-200 dark:border-primary-800/40 rounded-xl px-5 py-3 flex items-center justify-between"
-              >
-                <div className="flex items-center gap-3">
-                  <FaClock className="text-primary-600 dark:text-primary-400" />
-                  <p className="text-sm text-primary-800 dark:text-primary-300">
-                    <span className="font-semibold">Free Preview:</span> {timerMinutes}:{timerSeconds.toString().padStart(2, "0")} remaining
-                  </p>
-                </div>
-                <button
-                  onClick={() => window.location.href = "/plans"}
-                  className="px-4 py-1.5 bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-xs font-semibold rounded-lg hover:from-primary-700 hover:to-secondary-700 transition-all"
+            {accessChecked &&
+              !hasAccess &&
+              !pendingRequest &&
+              !showTimerPopup &&
+              (timerMinutes > 0 || timerSeconds > 0) && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-primary-900/15 dark:to-secondary-900/15 border border-primary-200 dark:border-primary-800/40 rounded-xl px-5 py-3 flex items-center justify-between"
                 >
-                  Get Premium
-                </button>
-              </motion.div>
-            )}
+                  <div className="flex items-center gap-3">
+                    <FaClock className="text-primary-600 dark:text-primary-400" />
+                    <p className="text-sm text-primary-800 dark:text-primary-300">
+                      <span className="font-semibold">Free Preview:</span>{" "}
+                      {timerMinutes}:{timerSeconds.toString().padStart(2, "0")}{" "}
+                      remaining
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => (window.location.href = "/plans")}
+                    className="px-4 py-1.5 bg-gradient-to-r from-primary-600 to-secondary-600 text-white text-xs font-semibold rounded-lg hover:from-primary-700 hover:to-secondary-700 transition-all"
+                  >
+                    Get Premium
+                  </button>
+                </motion.div>
+              )}
 
             {/* Pending request banner */}
             {accessChecked && !hasAccess && pendingRequest && (
@@ -492,7 +519,9 @@ export default function Resources() {
               >
                 <FaClock className="text-amber-500" />
                 <p className="text-sm text-amber-700 dark:text-amber-400">
-                  <span className="font-semibold">Access Pending:</span> Your request is awaiting admin approval. You can continue browsing in the meantime.
+                  <span className="font-semibold">Access Pending:</span> Your
+                  request is awaiting admin approval. You can continue browsing
+                  in the meantime.
                 </p>
               </motion.div>
             )}
@@ -548,34 +577,202 @@ export default function Resources() {
                       </h2>
                       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         {[
-                          { letter: "ا", name: "Alif", pron: "a / aa", word: "أَسَدٌ", wordMeaning: "Lion" },
-                          { letter: "ب", name: "Baa", pron: "b", word: "بَابٌ", wordMeaning: "Door" },
-                          { letter: "ت", name: "Taa", pron: "t", word: "تُفَّاحٌ", wordMeaning: "Apple" },
-                          { letter: "ث", name: "Thaa", pron: "th (soft)", word: "ثَعْلَبٌ", wordMeaning: "Fox" },
-                          { letter: "ج", name: "Jeem", pron: "j", word: "جَمَلٌ", wordMeaning: "Camel" },
-                          { letter: "ح", name: "Haa", pron: "ḥ (breathy)", word: "حِصَانٌ", wordMeaning: "Horse" },
-                          { letter: "خ", name: "Khaa", pron: "kh", word: "خُبْزٌ", wordMeaning: "Bread" },
-                          { letter: "د", name: "Daal", pron: "d", word: "دَجَاجَةٌ", wordMeaning: "Chicken" },
-                          { letter: "ذ", name: "Dhaal", pron: "dh (the)", word: "ذَهَبٌ", wordMeaning: "Gold" },
-                          { letter: "ر", name: "Raa", pron: "r (rolled)", word: "رَجُلٌ", wordMeaning: "Man" },
-                          { letter: "ز", name: "Zaay", pron: "z", word: "زَهْرَةٌ", wordMeaning: "Flower" },
-                          { letter: "س", name: "Seen", pron: "s", word: "سَمَكٌ", wordMeaning: "Fish" },
-                          { letter: "ش", name: "Sheen", pron: "sh", word: "شَمْسٌ", wordMeaning: "Sun" },
-                          { letter: "ص", name: "Saad", pron: "ṣ (heavy s)", word: "صَقْرٌ", wordMeaning: "Falcon" },
-                          { letter: "ض", name: "Daad", pron: "ḍ (heavy d)", word: "ضَوْءٌ", wordMeaning: "Light" },
-                          { letter: "ط", name: "Taa", pron: "ṭ (heavy t)", word: "طَائِرٌ", wordMeaning: "Bird" },
-                          { letter: "ظ", name: "Dhaa", pron: "ẓ (heavy dh)", word: "ظِلٌّ", wordMeaning: "Shadow" },
-                          { letter: "ع", name: "Ayn", pron: "ʿ (throat)", word: "عَيْنٌ", wordMeaning: "Eye" },
-                          { letter: "غ", name: "Ghayn", pron: "gh", word: "غُرَابٌ", wordMeaning: "Crow" },
-                          { letter: "ف", name: "Faa", pron: "f", word: "فِيلٌ", wordMeaning: "Elephant" },
-                          { letter: "ق", name: "Qaaf", pron: "q (deep)", word: "قَمَرٌ", wordMeaning: "Moon" },
-                          { letter: "ك", name: "Kaaf", pron: "k", word: "كِتَابٌ", wordMeaning: "Book" },
-                          { letter: "ل", name: "Laam", pron: "l", word: "لَيْلٌ", wordMeaning: "Night" },
-                          { letter: "م", name: "Meem", pron: "m", word: "مَاءٌ", wordMeaning: "Water" },
-                          { letter: "ن", name: "Noon", pron: "n", word: "نَجْمٌ", wordMeaning: "Star" },
-                          { letter: "ه", name: "Haa", pron: "h (light)", word: "هِلَالٌ", wordMeaning: "Crescent" },
-                          { letter: "و", name: "Waaw", pron: "w / oo", word: "وَرْدٌ", wordMeaning: "Rose" },
-                          { letter: "ي", name: "Yaa", pron: "y / ee", word: "يَدٌ", wordMeaning: "Hand" },
+                          {
+                            letter: "ا",
+                            name: "Alif",
+                            pron: "a / aa",
+                            word: "أَسَدٌ",
+                            wordMeaning: "Lion",
+                          },
+                          {
+                            letter: "ب",
+                            name: "Baa",
+                            pron: "b",
+                            word: "بَابٌ",
+                            wordMeaning: "Door",
+                          },
+                          {
+                            letter: "ت",
+                            name: "Taa",
+                            pron: "t",
+                            word: "تُفَّاحٌ",
+                            wordMeaning: "Apple",
+                          },
+                          {
+                            letter: "ث",
+                            name: "Thaa",
+                            pron: "th (soft)",
+                            word: "ثَعْلَبٌ",
+                            wordMeaning: "Fox",
+                          },
+                          {
+                            letter: "ج",
+                            name: "Jeem",
+                            pron: "j",
+                            word: "جَمَلٌ",
+                            wordMeaning: "Camel",
+                          },
+                          {
+                            letter: "ح",
+                            name: "Haa",
+                            pron: "ḥ (breathy)",
+                            word: "حِصَانٌ",
+                            wordMeaning: "Horse",
+                          },
+                          {
+                            letter: "خ",
+                            name: "Khaa",
+                            pron: "kh",
+                            word: "خُبْزٌ",
+                            wordMeaning: "Bread",
+                          },
+                          {
+                            letter: "د",
+                            name: "Daal",
+                            pron: "d",
+                            word: "دَجَاجَةٌ",
+                            wordMeaning: "Chicken",
+                          },
+                          {
+                            letter: "ذ",
+                            name: "Dhaal",
+                            pron: "dh (the)",
+                            word: "ذَهَبٌ",
+                            wordMeaning: "Gold",
+                          },
+                          {
+                            letter: "ر",
+                            name: "Raa",
+                            pron: "r (rolled)",
+                            word: "رَجُلٌ",
+                            wordMeaning: "Man",
+                          },
+                          {
+                            letter: "ز",
+                            name: "Zaay",
+                            pron: "z",
+                            word: "زَهْرَةٌ",
+                            wordMeaning: "Flower",
+                          },
+                          {
+                            letter: "س",
+                            name: "Seen",
+                            pron: "s",
+                            word: "سَمَكٌ",
+                            wordMeaning: "Fish",
+                          },
+                          {
+                            letter: "ش",
+                            name: "Sheen",
+                            pron: "sh",
+                            word: "شَمْسٌ",
+                            wordMeaning: "Sun",
+                          },
+                          {
+                            letter: "ص",
+                            name: "Saad",
+                            pron: "ṣ (heavy s)",
+                            word: "صَقْرٌ",
+                            wordMeaning: "Falcon",
+                          },
+                          {
+                            letter: "ض",
+                            name: "Daad",
+                            pron: "ḍ (heavy d)",
+                            word: "ضَوْءٌ",
+                            wordMeaning: "Light",
+                          },
+                          {
+                            letter: "ط",
+                            name: "Taa",
+                            pron: "ṭ (heavy t)",
+                            word: "طَائِرٌ",
+                            wordMeaning: "Bird",
+                          },
+                          {
+                            letter: "ظ",
+                            name: "Dhaa",
+                            pron: "ẓ (heavy dh)",
+                            word: "ظِلٌّ",
+                            wordMeaning: "Shadow",
+                          },
+                          {
+                            letter: "ع",
+                            name: "Ayn",
+                            pron: "ʿ (throat)",
+                            word: "عَيْنٌ",
+                            wordMeaning: "Eye",
+                          },
+                          {
+                            letter: "غ",
+                            name: "Ghayn",
+                            pron: "gh",
+                            word: "غُرَابٌ",
+                            wordMeaning: "Crow",
+                          },
+                          {
+                            letter: "ف",
+                            name: "Faa",
+                            pron: "f",
+                            word: "فِيلٌ",
+                            wordMeaning: "Elephant",
+                          },
+                          {
+                            letter: "ق",
+                            name: "Qaaf",
+                            pron: "q (deep)",
+                            word: "قَمَرٌ",
+                            wordMeaning: "Moon",
+                          },
+                          {
+                            letter: "ك",
+                            name: "Kaaf",
+                            pron: "k",
+                            word: "كِتَابٌ",
+                            wordMeaning: "Book",
+                          },
+                          {
+                            letter: "ل",
+                            name: "Laam",
+                            pron: "l",
+                            word: "لَيْلٌ",
+                            wordMeaning: "Night",
+                          },
+                          {
+                            letter: "م",
+                            name: "Meem",
+                            pron: "m",
+                            word: "مَاءٌ",
+                            wordMeaning: "Water",
+                          },
+                          {
+                            letter: "ن",
+                            name: "Noon",
+                            pron: "n",
+                            word: "نَجْمٌ",
+                            wordMeaning: "Star",
+                          },
+                          {
+                            letter: "ه",
+                            name: "Haa",
+                            pron: "h (light)",
+                            word: "هِلَالٌ",
+                            wordMeaning: "Crescent",
+                          },
+                          {
+                            letter: "و",
+                            name: "Waaw",
+                            pron: "w / oo",
+                            word: "وَرْدٌ",
+                            wordMeaning: "Rose",
+                          },
+                          {
+                            letter: "ي",
+                            name: "Yaa",
+                            pron: "y / ee",
+                            word: "يَدٌ",
+                            wordMeaning: "Hand",
+                          },
                         ].map((item, index) => (
                           <div
                             key={index}
@@ -593,7 +790,10 @@ export default function Resources() {
                             {/* Audio buttons */}
                             <div className="flex items-center justify-center gap-2 mb-2">
                               <button
-                                onClick={(e) => { e.stopPropagation(); speakArabic(item.letter, index); }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  speakArabic(item.letter, index);
+                                }}
                                 className={`flex items-center gap-1 px-2.5 py-1 rounded-[6px] border text-[11px] font-medium transition-all duration-200 ${
                                   speakingIdx === index
                                     ? "border-primary-500 text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20"
@@ -602,10 +802,15 @@ export default function Resources() {
                                 title={`Listen to ${item.name}`}
                               >
                                 <FaVolumeUp className="text-[10px]" />
-                                {speakingIdx === index ? "Playing..." : "Letter"}
+                                {speakingIdx === index
+                                  ? "Playing..."
+                                  : "Letter"}
                               </button>
                               <button
-                                onClick={(e) => { e.stopPropagation(); speakArabic(item.word, index + 100); }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  speakArabic(item.word, index + 100);
+                                }}
                                 className={`flex items-center gap-1 px-2.5 py-1 rounded-[6px] border text-[11px] font-medium transition-all duration-200 ${
                                   speakingIdx === index + 100
                                     ? "border-emerald-500 text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20"
@@ -614,7 +819,9 @@ export default function Resources() {
                                 title={`Listen to ${item.wordMeaning}`}
                               >
                                 <FaVolumeDown className="text-[10px]" />
-                                {speakingIdx === index + 100 ? "Playing..." : "Word"}
+                                {speakingIdx === index + 100
+                                  ? "Playing..."
+                                  : "Word"}
                               </button>
                             </div>
                             <div className="border-t border-slate-200 dark:border-dark-border pt-2 mt-1">
@@ -634,10 +841,10 @@ export default function Resources() {
                         </h3>
                         <p className="text-slate-700 dark:text-slate-300">
                           Start by learning each Arabic letter, its
-                          pronunciation, and how to connect them. Each card shows
-                          the letter, how it sounds, and an example Arabic word.
-                          Practice daily for best results. Your teacher will
-                          guide you through each step.
+                          pronunciation, and how to connect them. Each card
+                          shows the letter, how it sounds, and an example Arabic
+                          word. Practice daily for best results. Your teacher
+                          will guide you through each step.
                         </p>
                       </div>
                     </div>
@@ -705,7 +912,10 @@ export default function Resources() {
                                 className="p-3 sm:p-4 bg-white text-emerald-600 hover:bg-emerald-50 rounded-full transition-colors shadow-soft"
                               >
                                 <FaPause size={20} className="sm:hidden" />
-                                <FaPause size={24} className="hidden sm:block" />
+                                <FaPause
+                                  size={24}
+                                  className="hidden sm:block"
+                                />
                               </button>
                               <button
                                 onClick={playNextSurah}
