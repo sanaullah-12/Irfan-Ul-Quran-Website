@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Urdu Translation Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .verse {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+      .arabic {
+        font-size: 24px;
+        direction: rtl;
+        color: #1a5f3a;
+        margin-bottom: 10px;
+      }
+      .english {
+        color: #333;
+        margin-bottom: 10px;
+      }
+      .urdu {
+        font-size: 18px;
+        direction: rtl;
+        color: #0066cc;
+        font-weight: bold;
+      }
+      .missing {
+        color: red;
+        font-weight: bold;
+      }
+      .info {
+        background: #f0f0f0;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Urdu Translation Test - Juz 1</h1>
+
+    <div class="info">
+      <h3>Loading Status:</h3>
+      <div id="status">Loading...</div>
+    </div>
+
+    <div id="verses"></div>
+
+    <script>
+      async function testUrduTranslations() {
+        const statusDiv = document.getElementById("status");
+        const versesDiv = document.getElementById("verses");
+
+        try {
+          statusDiv.textContent = "Fetching Juz 1...";
+
+          const response = await fetch("/api/juz/1");
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          const verses = await response.json();
+
+          const withUrdu = verses.filter(
+            (v) => v.urduTranslation && v.urduTranslation.trim().length > 0,
+          ).length;
+          const withoutUrdu = verses.filter(
+            (v) => !v.urduTranslation || v.urduTranslation.trim().length === 0,
+          ).length;
+
+          statusDiv.innerHTML = `
+          <strong>Total Verses:</strong> ${verses.length}<br>
+          <strong>With Urdu:</strong> ${withUrdu} (${((withUrdu / verses.length) * 100).toFixed(1)}%)<br>
+          <strong>Without Urdu:</strong> ${withoutUrdu} (${((withoutUrdu / verses.length) * 100).toFixed(1)}%)<br>
+          <strong>Status:</strong> ${withUrdu === verses.length ? "✅ All verses have Urdu!" : "❌ Some verses missing Urdu!"}
+        `;
+
+          // Display first 10 verses
+          verses.slice(0, 10).forEach((verse) => {
+            const verseDiv = document.createElement("div");
+            verseDiv.className = "verse";
+
+            verseDiv.innerHTML = `
+            <div style="font-weight: bold; margin-bottom: 10px;">${verse.surah} - Verse ${verse.numberInSurah}</div>
+            <div class="arabic">${verse.text}</div>
+            <div class="english">${verse.englishTranslation}</div>
+            <div class="${verse.urduTranslation ? "urdu" : "missing"}">
+              ${verse.urduTranslation || "❌ NO URDU TRANSLATION"}
+            </div>
+          `;
+
+            versesDiv.appendChild(verseDiv);
+          });
+
+          if (verses.length > 10) {
+            const moreDiv = document.createElement("div");
+            moreDiv.innerHTML = `<p><em>... and ${verses.length - 10} more verses</em></p>`;
+            versesDiv.appendChild(moreDiv);
+          }
+        } catch (error) {
+          statusDiv.innerHTML = `<span style="color: red;">❌ Error: ${error.message}</span>`;
+          console.error("Error:", error);
+        }
+      }
+
+      // Run test when page loads
+      testUrduTranslations();
+    </script>
+  </body>
+</html>

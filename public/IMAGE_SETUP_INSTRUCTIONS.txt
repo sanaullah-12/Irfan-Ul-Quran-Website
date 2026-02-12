@@ -1,0 +1,24 @@
+IMPORTANT: Image Setup Instructions
+=====================================
+
+To complete the homepage setup, please follow these steps:
+
+1. Save the Quran image you provided (the one with the open Quran and prayer beads) to this folder:
+   Path: d:\Quran Website\public\
+
+2. Name the file exactly as: quran-hero.jpg
+
+3. The image should be high quality (the one you uploaded showing the open Quran with wooden prayer beads on a stand)
+
+The code has been updated to use this image at /quran-hero.jpg
+
+After completing this step:
+- The homepage will display your beautiful real Quran photo instead of the SVG illustration
+- The image will have proper styling with rounded corners, shadow effects, and overlay gradients
+- It will integrate seamlessly with the rest of the design
+
+If you need to use a different filename or format:
+- Update the src attribute in pages/index.tsx (line ~177)
+- Change: src="/quran-hero.jpg" to your preferred filename
+
+Current location to edit: d:\Quran Website\pages\index.tsx (around line 177)
