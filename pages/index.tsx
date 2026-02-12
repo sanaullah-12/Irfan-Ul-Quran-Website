@@ -10,7 +10,6 @@ import {
   FaUsers,
   FaQuran,
   FaMosque,
-  FaStar,
   FaCheckCircle,
 } from "react-icons/fa";
 
@@ -87,7 +86,7 @@ export default function Home() {
                   إِنَّ هَـٰذَا ٱلْقُرْءَانَ يَهْدِى لِلَّتِى هِىَ أَقْوَمُ
                 </p>
                 <p className="text-center text-slate-700 dark:text-slate-300 font-medium">
-                  "Indeed, this Qur'an guides to that which is most suitable"
+                  &ldquo;Indeed, this Qur&apos;an guides to that which is most suitable&rdquo;
                 </p>
                 <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-2">
                   — Surah Al-Isra (17:9)
@@ -167,6 +166,7 @@ export default function Home() {
                 >
                   {/* Real Quran Image */}
                   <div className="relative w-full h-auto">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src="/quran-hero.jpg"
                       alt="Open Quran with Prayer Beads"

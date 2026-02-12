@@ -13,7 +13,7 @@ interface NotificationItem {
   message: string;
   read: boolean;
   createdAt: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 export default function NotificationBell() {

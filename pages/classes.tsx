@@ -14,7 +14,6 @@ import {
   FaTimes,
   FaChalkboardTeacher,
   FaUserGraduate,
-  FaBookOpen,
   FaSearch,
   FaCheck,
 } from "react-icons/fa";
@@ -33,6 +32,7 @@ interface StudentOption {
 
 export default function Classes() {
   const { user } = useAuth();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [classes, setClasses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -148,8 +148,9 @@ export default function Classes() {
       closeScheduleModal();
       loadClasses();
       alert("Class scheduled successfully! Notifications sent to teacher and students.");
-    } catch (error: any) {
-      alert(error.response?.data?.message || "Failed to schedule class");
+    } catch (error: unknown) {
+      const msg = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Failed to schedule class");
     } finally {
       setSubmitting(false);
     }
@@ -160,8 +161,9 @@ export default function Classes() {
       await api.post(`/classes/enroll/${classId}`);
       alert("Successfully enrolled in class!");
       loadClasses();
-    } catch (error: any) {
-      alert(error.response?.data?.message || "Failed to enroll");
+    } catch (error: unknown) {
+      const msg = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Failed to enroll");
     }
   };
 

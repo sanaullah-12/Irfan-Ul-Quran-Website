@@ -208,32 +208,36 @@ export default function AdminDashboard() {
     try {
       await api.patch(`/admin/users/${userId}/block`);
       fetchData();
-    } catch (e: any) {
-      alert(e.response?.data?.message || "Error");
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Error");
     }
   };
   const handleUnblockUser = async (userId: string) => {
     try {
       await api.patch(`/admin/users/${userId}/unblock`);
       fetchData();
-    } catch (e: any) {
-      alert(e.response?.data?.message || "Error");
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Error");
     }
   };
   const handleApproveResource = async (id: string) => {
     try {
       await api.patch(`/admin/resource-requests/${id}/approve`);
       fetchData();
-    } catch (e: any) {
-      alert(e.response?.data?.message || "Error");
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Error");
     }
   };
   const handleRejectResource = async (id: string) => {
     try {
       await api.patch(`/admin/resource-requests/${id}/reject`);
       fetchData();
-    } catch (e: any) {
-      alert(e.response?.data?.message || "Error");
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Error");
     }
   };
   const handleAssignTeacher = async (studentId: string) => {
@@ -247,8 +251,9 @@ export default function AdminDashboard() {
       });
       setAssignTeacherId("");
       fetchData();
-    } catch (e: any) {
-      alert(e.response?.data?.message || "Error");
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Error");
     }
   };
 
@@ -266,8 +271,9 @@ export default function AdminDashboard() {
       setCancelTarget(null);
       setCancelReason("");
       fetchData();
-    } catch (e: any) {
-      alert(e.response?.data?.message || "Error");
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Error");
     }
   };
 
@@ -287,8 +293,9 @@ export default function AdminDashboard() {
       setRescheduleTarget(null);
       setRescheduleForm({ scheduledDate: "", duration: 60 });
       fetchData();
-    } catch (e: any) {
-      alert(e.response?.data?.message || "Error");
+    } catch (e: unknown) {
+      const msg = (e as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Error");
     }
   };
 

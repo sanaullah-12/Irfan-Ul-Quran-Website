@@ -106,7 +106,7 @@ export default function Plans() {
         alert("Payment successful! Your plan is now active.");
         window.location.reload();
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Payment error:", error);
       alert("Payment failed. Please try again.");
     } finally {

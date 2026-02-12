@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { IconType } from "react-icons";
 
 interface EmptyStateProps {
   icon: React.ReactNode;

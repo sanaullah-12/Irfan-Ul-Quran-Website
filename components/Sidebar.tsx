@@ -11,7 +11,6 @@ import {
   FaCalendarAlt,
   FaChartLine,
   FaCreditCard,
-  FaCog,
   FaSignOutAlt,
   FaUserGraduate,
   FaCalendarPlus,
@@ -24,7 +23,6 @@ import {
   FaTimes,
   FaMoon,
   FaSun,
-  FaBookOpen as FaResource,
   FaHome,
   FaBell,
 } from "react-icons/fa";

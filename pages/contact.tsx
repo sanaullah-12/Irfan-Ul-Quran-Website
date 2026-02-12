@@ -47,8 +47,9 @@ export default function Contact() {
       await api.post("/contact/send", formData);
       setSuccess(true);
       setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Failed to send message");
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      setError(msg || "Failed to send message");
     } finally {
       setLoading(false);
     }
@@ -86,7 +87,7 @@ export default function Contact() {
                 Contact Us
               </h1>
               <p className="text-xl text-slate-600 dark:text-slate-300">
-                We're here to help! Reach out to us with any questions
+                We&apos;re here to help! Reach out to us with any questions
               </p>
             </motion.div>
 
@@ -104,7 +105,7 @@ export default function Contact() {
 
                 {success && (
                   <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-400 px-4 py-3 rounded-lg mb-4">
-                    Message sent successfully! We'll get back to you soon.
+                    Message sent successfully! We&apos;ll get back to you soon.
                   </div>
                 )}
 

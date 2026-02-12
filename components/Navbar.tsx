@@ -9,7 +9,6 @@ import {
   FaTimes,
   FaMoon,
   FaSun,
-  FaUser,
   FaChevronDown,
   FaChartPie,
 } from "react-icons/fa";
@@ -116,6 +115,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logoimage.png"
               alt="Quran Learning"

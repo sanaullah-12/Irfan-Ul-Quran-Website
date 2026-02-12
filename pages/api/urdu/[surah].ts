@@ -33,10 +33,10 @@ export default async function handler(
 
     const verses = data?.verses || data?.data?.verses || [];
     return res.status(200).json({ verses });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error(
       `API error fetching Surah ${surahNumber} Urdu:`,
-      error.message,
+      error instanceof Error ? error.message : error,
     );
     return res.status(500).json({
       message: "Unable to load Urdu translation.",

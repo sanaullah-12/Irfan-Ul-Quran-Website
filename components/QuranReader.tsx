@@ -36,7 +36,9 @@ const QuranReader: React.FC<QuranReaderProps> = ({ juzNumber, onClose }) => {
     useState<TranslationMode>("english");
   const ayahsPerPage = 10;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const normalizeAyahs = (rawAyahs: any[] = []): Ayah[] =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rawAyahs.map((ayah: any) => ({
       number: ayah.number,
       text: ayah.text,
@@ -61,7 +63,7 @@ const QuranReader: React.FC<QuranReaderProps> = ({ juzNumber, onClose }) => {
           juzNumber,
         },
       });
-    } catch (error) {
+    } catch {
       // Silently fail if logging fails
       console.debug("Activity logging skipped");
     }
@@ -96,13 +98,13 @@ const QuranReader: React.FC<QuranReaderProps> = ({ juzNumber, onClose }) => {
 
       setAyahs(normalizeAyahs(data));
       setCurrentPage(0);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error loading Juz:", err);
-      if (err.name === "AbortError") {
+      if (err instanceof Error && err.name === "AbortError") {
         setError("Request timed out. The server may be busy. Please try again.");
       } else {
         setError(
-          err.message || `Failed to load Juz ${juzNumber}. Please try again.`,
+          (err instanceof Error ? err.message : null) || `Failed to load Juz ${juzNumber}. Please try again.`,
         );
       }
     } finally {

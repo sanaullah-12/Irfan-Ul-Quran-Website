@@ -24,14 +24,18 @@ import { quranService, hadithService, duaService } from "../utils/quranService";
 import api from "../utils/api";
 
 export default function Resources() {
-  const { user } = useAuth();
+  useAuth();
   const [activeTab, setActiveTab] = useState("nazra");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [surahs, setSurahs] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [juzList, setJuzList] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [hadiths, setHadiths] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [duas, setDuas] = useState<any[]>([]);
   const [selectedReciter, setSelectedReciter] = useState("ar.alafasy");
-  const [playingAudio, setPlayingAudio] = useState<HTMLAudioElement | null>(
+  const [, setPlayingAudio] = useState<HTMLAudioElement | null>(
     null,
   );
   const [playingSurah, setPlayingSurah] = useState<number | null>(null);
@@ -87,6 +91,7 @@ export default function Resources() {
   const [accessChecked, setAccessChecked] = useState(false);
   const [hasAccess, setHasAccess] = useState(false);
   const [pendingRequest, setPendingRequest] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showAccessModal, setShowAccessModal] = useState(false);
   const [requestingAccess, setRequestingAccess] = useState(false);
 
@@ -167,10 +172,13 @@ export default function Resources() {
       }, 1000);
     }
 
+    const currentTimerRef = timerRef.current;
+    const currentCountdownRef = countdownRef.current;
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-      if (countdownRef.current) clearInterval(countdownRef.current);
+      if (currentTimerRef) clearTimeout(currentTimerRef);
+      if (currentCountdownRef) clearInterval(currentCountdownRef);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessChecked, hasAccess, pendingRequest]);
 
   const checkResourceAccess = async () => {
@@ -193,8 +201,9 @@ export default function Resources() {
         message: "Please grant me access to learning resources.",
       });
       setPendingRequest(true);
-    } catch (error: any) {
-      alert(error.response?.data?.message || "Error submitting request");
+    } catch (error: unknown) {
+      const msg = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Error submitting request");
     } finally {
       setRequestingAccess(false);
     }
@@ -837,7 +846,7 @@ export default function Resources() {
                               {hadith.arabic}
                             </div>
                             <p className="text-slate-700 dark:text-slate-300 text-center italic">
-                              "{hadith.text}"
+                              &ldquo;{hadith.text}&rdquo;
                             </p>
                           </div>
                         ))}

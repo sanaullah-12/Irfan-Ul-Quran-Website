@@ -289,7 +289,7 @@ export default function CourseDetails() {
                 className="card"
               >
                 <h3 className="text-2xl font-bold mb-4 text-slate-800 dark:text-slate-200">
-                  What You'll Learn
+                  What You&apos;ll Learn
                 </h3>
                 <div className="space-y-3">
                   {course.features.map((feature: string, index: number) => (

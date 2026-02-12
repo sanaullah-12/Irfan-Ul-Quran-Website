@@ -18,7 +18,7 @@ interface UserInfo { name: string; email: string; plan: string; planExpiryDate: 
 interface ClassItem { _id: string; courseType: string; teacherName: string; scheduledDate: string; duration: number; status: string; roomId: string; notes?: string; }
 interface Course { _id: string; courseTitle: string; courseType: string; status: string; progress: number; enrollmentDate: string; description?: string; }
 interface NextClass { _id: string; courseType: string; teacherName: string; scheduledDate: string; duration: number; roomId: string; }
-interface NotificationItem { _id: string; type: string; title: string; message: string; read: boolean; createdAt: string; metadata?: any; }
+interface NotificationItem { _id: string; type: string; title: string; message: string; read: boolean; createdAt: string; metadata?: Record<string, unknown>; }
 
 type Tab = "overview" | "courses" | "upcoming" | "history" | "notifications" | "profile";
 
@@ -47,6 +47,7 @@ export default function StudentDashboard() {
       if (!user || user.role !== "student") { router.push("/"); return; }
       fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authLoading, user]);
 
   useEffect(() => {

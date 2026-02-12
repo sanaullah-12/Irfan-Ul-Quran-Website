@@ -57,8 +57,8 @@ export default function Signup() {
           "Account created! Your account is pending admin approval. You will be notified once approved.",
         );
       }
-    } catch (err: any) {
-      setError(err.message || "Signup failed");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Signup failed");
     } finally {
       setLoading(false);
     }

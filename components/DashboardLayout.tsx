@@ -77,8 +77,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
   const roleColor = "from-primary-600 to-secondary-600";
 
-  const activeRingColor = "border-primary-600 dark:border-primary-400 text-primary-700 dark:text-primary-300";
-
   return (
     <Layout>
       <Head>

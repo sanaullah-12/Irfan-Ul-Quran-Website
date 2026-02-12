@@ -23,8 +23,8 @@ export default function Login() {
     try {
       await login(email, password);
       router.push("/");
-    } catch (err: any) {
-      setError(err.message || "Login failed");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Login failed");
     } finally {
       setLoading(false);
     }
@@ -102,7 +102,7 @@ export default function Login() {
 
             <div className="mt-6 text-center">
               <p className="text-gray-600">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link
                   href="/signup"
                   className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-semibold"

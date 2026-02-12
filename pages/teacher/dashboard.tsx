@@ -8,7 +8,6 @@ import {
   FaUsers,
   FaCalendarAlt,
   FaCheckCircle,
-  FaTimesCircle,
   FaClock,
   FaBookOpen,
   FaChalkboardTeacher,
@@ -19,8 +18,6 @@ import {
   FaTrashAlt,
   FaUserGraduate,
   FaStickyNote,
-  FaChartLine,
-  FaUser,
   FaBan,
 } from "react-icons/fa";
 import api from "../../utils/api";
@@ -148,6 +145,7 @@ export default function TeacherDashboard() {
       }
       fetchData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authLoading, user]);
 
   const fetchData = async () => {
@@ -182,8 +180,9 @@ export default function TeacherDashboard() {
       setCancelTarget(null);
       setCancelReason("");
       fetchData();
-    } catch (err: any) {
-      alert(err.response?.data?.message || "Failed to cancel");
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Failed to cancel");
     }
   };
 
@@ -199,8 +198,9 @@ export default function TeacherDashboard() {
       setRescheduleTarget(null);
       setRescheduleForm({ scheduledDate: "", duration: 60 });
       fetchData();
-    } catch (err: any) {
-      alert(err.response?.data?.message || "Failed to reschedule");
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Failed to reschedule");
     }
   };
 
@@ -209,8 +209,9 @@ export default function TeacherDashboard() {
     try {
       await api.patch(`/teacher/classes/${classId}/status`, { status });
       fetchData();
-    } catch (err: any) {
-      alert(err.response?.data?.message || "Failed to update");
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(msg || "Failed to update");
     }
   };
 
