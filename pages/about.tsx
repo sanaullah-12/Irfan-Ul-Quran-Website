@@ -73,7 +73,7 @@ export default function About() {
                   <div className="md:col-span-2 space-y-6">
                     <div>
                       <h3 className="text-2xl font-bold text-primary-700 dark:text-primary-400 mb-2">
-                        Sheikh Muhammad Abdullah
+                        Attique Ur Rehman
                       </h3>
                       <p className="text-gold dark:text-gold font-semibold">
                         Certified Quran Teacher & Islamic Scholar

@@ -27,7 +27,7 @@ const Footer = () => {
                 <FaBookOpen className="text-white text-lg" />
               </div>
               <h3 className="text-xl font-bold bg-gradient-to-r from-emerald-700 to-primary-600 dark:from-emerald-400 dark:to-primary-400 bg-clip-text text-transparent">
-                Quran Learning
+                Irfan UL Quran Learning
               </h3>
             </div>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -183,19 +183,19 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <FaMapMarkerAlt className="text-emerald-600 dark:text-emerald-400 mt-1 flex-shrink-0" />
                 <span className="text-slate-600 dark:text-slate-400 text-sm">
-                  123 Islamic Center, City Name, Country
+                  Sector F-10 Islamabad Pakistan
                 </span>
               </li>
               <li className="flex items-center space-x-3">
                 <FaPhone className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
                 <span className="text-slate-600 dark:text-slate-400 text-sm">
-                  +1 234 567 8900
+                  +92 313 5064381
                 </span>
               </li>
               <li className="flex items-center space-x-3">
                 <FaEnvelope className="text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
                 <span className="text-slate-600 dark:text-slate-400 text-sm">
-                  info@quranlearning.com
+                  irfanulquran02@gmail.com
                 </span>
               </li>
             </ul>
